@@ -1,7 +1,7 @@
 #! /bin/bash
 
 scripts=$(dirname "$0")
-base=$(realpath $scripts/..)
+base=$scripts/..
 
 models=$base/models
 data=$base/data
@@ -15,11 +15,12 @@ device=""
 SECONDS=0
 
 (cd $tools/pytorch-examples/word_language_model &&
-    CUDA_VISIBLE_DEVICES=$device OMP_NUM_THREADS=$num_threads python main.py --data $data/grimm \
+    OMP_NUM_THREADS=$num_threads python main.py --data ../../../data/new \
         --epochs 40 \
         --log-interval 100 \
         --emsize 200 --nhid 200 --dropout 0.5 --tied \
-        --save $models/model.pt
+        --save ../../../models/model.pt \
+        --cuda
 )
 
 echo "time taken:"
